@@ -1,4 +1,5 @@
 # Retrieval-Augmented Generation (RAG) with LangChain, Gemini and Pinecone
+- Jeimy Alejandra Yaya Martinez
 
 ## Overview
 
@@ -56,12 +57,12 @@ Final Answer
 
 -   `GoogleGenerativeAIEmbeddings`
 -   Model used: `gemini-embedding-001`
--   Converts text chunks into dense vectors (768 dimensions).
+-   Converts text chunks into dense vectors (3072 dimensions).
 
 ### 4. Vector Database
 
 -   Pinecone (Serverless index)
--   Dimension: 768
+-   Dimension: 3072
 -   Metric: cosine similarity
 
 ### 5. Retriever
@@ -99,6 +100,13 @@ rag_chain = (
     | StrOutputParser()
 )
 ```
+This pipeline ensures:
+
+1. The question is passed to the retriever.
+2. Relevant documents are retrieved.
+3. Retrieved content is injected into the prompt.
+4. Gemini generates the final grounded response.
+
 
 ------------------------------------------------------------------------
 
@@ -144,6 +152,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Dependencies include:
+
+- langchain
+- langchain-google-genai
+- langchain-pinecone
+- pinecone-client
+- python-dotenv
+
 ------------------------------------------------------------------------
 
 # Environment Variables
@@ -168,10 +184,29 @@ python rag.py
 
     Retrieval Augmented Generation (RAG) is a technique used by sophisticated question-answering (Q&A) chatbots...
 
+<img width="642" height="135" alt="image" src="https://github.com/user-attachments/assets/07c9972f-62f5-4ea8-9e62-a3bbefe23a51" />
+
+
+
+------------------------------------------------------------------------
+
+# How Retrieval Enhances the Model
+
+Without retrieval:
+
+- The LLM answers based only on its training data.
+- May hallucinate.
+
+With RAG:
+
+- The question is converted into embeddings.
+- Pinecone retrieves relevant document chunks.
+- Retrieved context is injected into the prompt.
+- The LLM generates grounded responses.
+This reduces hallucinations and improves factual accuracy.
+
 ------------------------------------------------------------------------
 
 # Conclusion
 
-This project demonstrates a complete Retrieval-Augmented Generation
-pipeline using Gemini and Pinecone, following modern LLM engineering
-practices.
+This project demonstrates a complete Retrieval-Augmented Generation pipeline using modern LLM engineering practices. It highlights the integration of semantic search and generative AI, showcasing how vector databases enhance language model performance in real-world applications.
